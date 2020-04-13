@@ -1,0 +1,39 @@
+server:
+    port: 9527
+spring:
+    application:
+        name: cloud-gateway
+    cloud:
+        gateway:
+            routes:
+            -   id: payment_routh
+                #uri: http://localhost:8001
+                uri: lb://cloud-payment-service
+                predicates:
+                - Path=/payment/get/**
+                - After=2020-04-12T17:42:47.789+08:00[Asia/Shanghai]
+                #- Before=2020-04-20T17:42:47.789+08:00[Asia/Shanghai]
+                #- Cookie=username,ottack   #可以使用cmd curl http://localhost:9527/payment/get/33 --cookie "username=ottack"
+                #- Header=X-Request-Id, \d+  #可以使用cmd curl http://localhost:9527/payment/get/33 --H "X-Request-Id:1234"
+            -   id: payment_routh2
+                #uri: http://localhost:8001
+                uri: lb://cloud-payment-service
+                predicates:
+                - Path=/payment/lb/**
+            discovery:
+              locator:
+                enabled: true
+eureka:
+    client:
+        #表示是否将自己注册进Eureka，默认为true
+        register-with-eureka: true
+        #表示是否从EurekaServer抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true，才能配合Ribbon使用负载均衡
+        fetchRegistry: true
+        service-url:
+            #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+            #defaultZone: http://localhost:7001/eureka
+            defaultZone: http://eureka7001.com:7001/eureka,http://eureka7003.com:7003/eureka,http://eureka7002.com:7002/eureka
+    instance:
+        instance-id: hystrix-payment8001
+        prefer-ip-address: true
+        hostname: cloud-gateway-service

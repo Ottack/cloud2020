@@ -1,0 +1,30 @@
+server:
+    port: 3355
+spring:
+    application:
+        name: cloud-config-client
+    cloud:
+        config:
+            label: master
+            name: config
+            profile: dev
+            uri: http://config3344.com:3344
+eureka:
+    client:
+        #表示是否将自己注册进Eureka，默认为true
+        register-with-eureka: true
+        #表示是否从EurekaServer抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true，才能配合Ribbon使用负载均衡
+        fetchRegistry: true
+        service-url:
+            #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+            #defaultZone: http://localhost:7001/eureka
+            defaultZone: http://eureka7001.com:7001/eureka
+    instance:
+        instance-id: loud-config-client3355
+        prefer-ip-address: true
+#暴露监控端点
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
