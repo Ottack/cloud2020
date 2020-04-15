@@ -12,6 +12,12 @@ spring:
                     search-paths:
                     - springcloud-config
                 label: master
+    #rabbit相关配置   15672是管理界面的端口；5672是MQ访问的端口
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
 eureka:
     client:
         #表示是否将自己注册进Eureka，默认为true
@@ -25,3 +31,9 @@ eureka:
     instance:
         instance-id: loud-config-center3344
         prefer-ip-address: true
+#暴露监控端点
+management:
+    endpoints:
+        web:
+            exposure:
+                include: 'bus-refresh'
