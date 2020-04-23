@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.net.URI;
 import java.util.List;
@@ -74,4 +75,11 @@ public class OrderControl {
 
 		return restTemplate.getForObject(uri + "/payment/lb/", String.class);
 	}
+
+	@GetMapping(value = "/consumer/payment/zipkin")
+	public String consumerZipkin() {
+		String result = restTemplate.getForObject(PAYMENT_URL + "/payment/zipkin/", String.class);
+		return result;
+	}
+
 }
