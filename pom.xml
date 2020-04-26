@@ -31,6 +31,7 @@
         <module>cloud-stream-rabbitmq-provider8801</module>
         <module>cloud-stream-rabbitmq-consumer8802</module>
         <module>cloud-stream-rabbitmq-consumer8803</module>
+        <module>cloud-aop-payment5001</module>
     </modules>
 
     <name>Maven</name>
